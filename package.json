@@ -1,0 +1,31 @@
+{
+  "name": "mir.ai",
+  "version": "1.0.0",
+  "description": "Real-time WebRTC Virtual Try-On (VTON) Studio powered by Decart.ai Lucy VTON 3.6 & 3.5",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "python3 server.py",
+    "node": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaizen-abhinav/mir.ai.git"
+  },
+  "keywords": [
+    "mir-ai",
+    "vton",
+    "virtual-try-on",
+    "webrtc",
+    "decart",
+    "lucy-vton-3.6",
+    "lucy-vton-3.5",
+    "realtime-ai"
+  ],
+  "author": "abhinav",
+  "license": "MIT",
+  "dependencies": {
+    "@decartai/sdk": "^0.2.12",
+    "dotenv": "^16.4.5"
+  }
+}
