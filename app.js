@@ -113,7 +113,7 @@ function escapeHtml(str) {
 // Update UI Status
 function setConnectionStatus(status, text) {
   if (elements.statusDot) elements.statusDot.className = `status-dot ${status}`;
-  if (elements.statusText) elements.statusText.textContent = text;
+  if (elements.statusText) elements.statusText.textContent = text.toLowerCase();
 
   if (status === "live") {
     if (elements.btnStreamLabel) elements.btnStreamLabel.textContent = "Disconnect";
@@ -547,7 +547,7 @@ async function applyGarment(prompt, image, label, thumbUrl) {
       image: image,
     });
 
-    if (elements.activeOutfitTitle) elements.activeOutfitTitle.textContent = label || prompt;
+    if (elements.activeOutfitTitle) elements.activeOutfitTitle.textContent = (label || prompt).toLowerCase();
     if (elements.activeOutfitThumb && thumbUrl) {
       elements.activeOutfitThumb.src = thumbUrl;
     }
@@ -575,7 +575,7 @@ async function applyPreset(preset) {
   if (state.isConnected && state.realtimeClient) {
     await applyGarment(preset.prompt, garmentImage, preset.name, preset.imageUrl);
   } else {
-    if (elements.activeOutfitTitle) elements.activeOutfitTitle.textContent = preset.name;
+    if (elements.activeOutfitTitle) elements.activeOutfitTitle.textContent = preset.name.toLowerCase();
     if (elements.activeOutfitThumb) elements.activeOutfitThumb.src = preset.imageUrl;
     if (elements.customPrompt) elements.customPrompt.value = preset.prompt;
     addLog(`Selected preset: ${preset.name}. Click "Start Try-On" to wear.`, "info");
@@ -593,11 +593,9 @@ function renderPresets(presets) {
     card.innerHTML = `
       <div class="preset-thumb-wrap">
         <img src="${preset.imageUrl}" class="preset-thumb" alt="${escapeHtml(preset.name)}" loading="lazy">
-        <span class="preset-tag">${escapeHtml(preset.category || 'VTON')}</span>
       </div>
       <div class="preset-info">
-        <div class="preset-name">${escapeHtml(preset.name)}</div>
-        <div class="preset-category">${escapeHtml(preset.prompt)}</div>
+        <div class="preset-name">${escapeHtml(preset.name).toLowerCase()}</div>
       </div>
     `;
 
@@ -607,7 +605,7 @@ function renderPresets(presets) {
 
   if (presets.length > 0) {
     state.activePreset = presets[0];
-    if (elements.activeOutfitTitle) elements.activeOutfitTitle.textContent = state.activePreset.name;
+    if (elements.activeOutfitTitle) elements.activeOutfitTitle.textContent = state.activePreset.name.toLowerCase();
     if (elements.activeOutfitThumb) elements.activeOutfitThumb.src = state.activePreset.imageUrl;
     if (elements.customPrompt) elements.customPrompt.value = state.activePreset.prompt;
   }
@@ -794,6 +792,17 @@ function setupEventListeners() {
   };
   if (elements.btnToggleStream) elements.btnToggleStream.addEventListener("click", toggleHandler);
   if (elements.btnPlaceholderStart) elements.btnPlaceholderStart.addEventListener("click", toggleHandler);
+
+  // Upload panel toggle
+  const uploadPanel = document.getElementById('upload-panel');
+  const btnOpenUpload = document.getElementById('btn-open-upload');
+  const btnCloseUpload = document.getElementById('btn-close-upload');
+  if (btnOpenUpload && uploadPanel) {
+    btnOpenUpload.addEventListener('click', () => uploadPanel.classList.toggle('open'));
+  }
+  if (btnCloseUpload && uploadPanel) {
+    btnCloseUpload.addEventListener('click', () => uploadPanel.classList.remove('open'));
+  }
 
   // Snapshot
   if (elements.btnSnapshot) elements.btnSnapshot.addEventListener("click", captureSnapshot);
