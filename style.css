@@ -119,21 +119,25 @@ html, body {
 
 .pip {
   position: absolute;
-  bottom: 100px;
-  left: 20px;
-  width: 160px;
+  bottom: 20px;
+  right: 70px;
+  width: 150px;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 10;
-  opacity: 0.75;
-  transition: opacity 0.3s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 15;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.pip:hover { opacity: 1; }
+.pip:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
 
 .pip-label { display: none; }
 
@@ -264,161 +268,269 @@ html, body {
 }
 
 
-/* ════════════════════ GARMENT RAIL (BOTTOM CENTER) ════════════════════ */
+/* ════════════════════ LEFT-SIDE 3D CATALOGUE DOCK ════════════════════ */
 
-.garment-rail {
+.catalog-dock {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border-radius: 34px;
+  padding: 10px 8px 12px 8px;
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1.5px 1.5px 0 rgba(0, 0, 0, 0.35),
+    0 16px 48px -8px rgba(0, 0, 0, 0.6);
+  max-height: calc(100vh - 120px);
+}
+
+/* TOP: New Photo Adding Option (Bigger, Ultra-Realistic Glassmorphism) */
+.catalog-add-btn {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0.10) 100%);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 
+    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 8px 24px -2px rgba(0, 0, 0, 0.45),
+    0 0 16px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.catalog-add-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.catalog-add-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0.16) 100%);
+  color: #ffffff;
+  box-shadow: 
+    inset 0 2px 2px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25),
+    0 12px 30px -4px rgba(0, 0, 0, 0.55),
+    0 0 24px 2px rgba(255, 255, 255, 0.16);
+}
+
+.catalog-add-btn:active {
+  transform: scale(0.97);
+}
+
+.add-btn-glass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Glass Divider between Add Button and 3D Dress Cards */
+.catalog-divider {
+  width: 32px;
+  height: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  margin: 1px 0;
+}
+
+/* Scrollable Container (Top to Bottom) */
+.catalog-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2px 2px;
+  max-height: calc(100vh - 240px);
+}
+
+.catalog-scroll::-webkit-scrollbar { display: none; }
+
+/* 3D Asset Dress Card (Pure Image, No Full Text Name) */
+.preset-card {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: none;
+  border-radius: 18px;
+  padding: 3px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.3),
+    0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.preset-card:hover {
+  transform: translateX(4px) scale(1.08);
+  background: rgba(255, 255, 255, 0.10);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(255, 255, 255, 0.1);
+}
+
+.preset-card.active {
+  transform: translateX(4px) scale(1.10);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.55),
+    0 8px 24px rgba(0, 0, 0, 0.55),
+    0 0 20px 2px rgba(255, 255, 255, 0.22);
+}
+
+/* Active indicator dot */
+.preset-card.active::before {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Floating clean tooltip on hover */
+.preset-card::after {
+  content: attr(data-name);
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(18, 18, 20, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+    0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 50;
+}
+
+.preset-card:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(2px);
+}
+
+.preset-asset-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.preset-asset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 15px;
+  filter: brightness(0.92) contrast(1.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.preset-card:hover .preset-asset-img,
+.preset-card.active .preset-asset-img {
+  filter: brightness(1.06) contrast(1.1);
+  transform: scale(1.06);
+}
+
+
+/* ════════════════════ ACTIVE WEARING PILL (BOTTOM-CENTER) ════════════════════ */
+
+.active-outfit-pill {
   position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 6px;
-  z-index: 20;
-  background: var(--glass);
-  backdrop-filter: blur(var(--blur));
-  -webkit-backdrop-filter: blur(var(--blur));
-  border-radius: 40px;
-  padding: 6px 10px 6px 14px;
-  max-width: 90vw;
-}
-
-.rail-now {
-  display: flex;
-  align-items: center;
   gap: 8px;
-  padding-right: 10px;
-  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 30px;
+  padding: 5px 14px 5px 6px;
+  z-index: 20;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.rail-now-thumb {
-  width: 24px;
-  height: 24px;
+.active-outfit-thumb {
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   object-fit: cover;
-  opacity: 0.7;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.rail-now-name {
+.active-outfit-title {
   font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.5);
-  white-space: nowrap;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Separator line */
-.rail-now::after {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  margin-left: 4px;
-}
-
-.rail-scroll {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  max-width: 50vw;
-  padding: 2px 0;
-}
-
-.rail-scroll::-webkit-scrollbar { display: none; }
-
-/* Each garment option — just text */
-.preset-card {
-  flex-shrink: 0;
-  background: transparent;
-  border: none;
-  border-radius: 20px;
-  padding: 5px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-}
-
-.preset-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.preset-card.active {
-  background: rgba(255, 255, 255, 0.10);
-}
-
-.preset-card .preset-thumb-wrap {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.preset-card .preset-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  opacity: 0.6;
-  transition: opacity 0.2s;
-}
-
-.preset-card:hover .preset-thumb,
-.preset-card.active .preset-thumb {
-  opacity: 0.9;
-}
-
-.preset-card .preset-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.preset-card .preset-name {
-  font-size: 10px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.3px;
-  transition: color 0.2s;
-}
-
-.preset-card:hover .preset-name,
-.preset-card.active .preset-name {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.preset-card .preset-category,
-.preset-card .preset-tag {
-  display: none;
-}
-
-.rail-upload-btn {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.04);
-  border: none;
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.rail-upload-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.8px;
   color: rgba(255, 255, 255, 0.6);
+  text-transform: lowercase;
+  white-space: nowrap;
 }
 
 
@@ -868,21 +980,53 @@ input:checked + .toggle-track::before {
 /* ════════════════════ RESPONSIVE ════════════════════ */
 
 @media (max-width: 640px) {
-  .garment-rail {
-    padding: 5px 8px 5px 12px;
-    gap: 4px;
+  .catalog-dock {
+    left: 10px;
+    padding: 8px 6px;
+    gap: 8px;
+    border-radius: 26px;
   }
 
-  .rail-now-name { max-width: 80px; }
-  .rail-scroll { max-width: 45vw; }
+  .catalog-add-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 18px;
+  }
+
+  .preset-card {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+
+  .preset-asset-frame,
+  .preset-asset-img {
+    border-radius: 12px;
+  }
+
+  .active-outfit-pill {
+    bottom: 14px;
+    padding: 4px 10px 4px 5px;
+  }
+
+  .active-outfit-thumb {
+    width: 18px;
+    height: 18px;
+  }
+
+  .active-outfit-title {
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .pip {
     width: 110px;
-    bottom: 90px;
-    left: 12px;
+    bottom: 14px;
+    right: 14px;
   }
 
   .hud-tl { top: 14px; left: 16px; }
   .hud-tr { top: 14px; right: 16px; }
-  .hud-br { bottom: 14px; right: 16px; }
+  .hud-br { display: none; }
 }

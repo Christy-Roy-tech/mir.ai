@@ -78,26 +78,31 @@
       </button>
     </div>
 
-    <!-- ═══ BOTTOM: Garment Picker (Floating Glass Rail) ═══ -->
-    <div class="garment-rail" id="garment-rail">
-      <!-- Currently wearing label -->
-      <div class="rail-now" id="active-outfit-pill">
-        <img src="/garments/bomber-jacket.png" class="rail-now-thumb" id="active-outfit-thumb" alt="">
-        <span class="rail-now-name" id="active-outfit-title">black bomber jacket</span>
-      </div>
-
-      <!-- Scrollable garment options -->
-      <div class="rail-scroll" id="presets-grid">
-        <!-- Populated dynamically -->
-      </div>
-
-      <!-- Custom upload trigger -->
-      <button class="rail-upload-btn" id="btn-open-upload" title="Upload garment">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+    <!-- ═══ LEFT SIDE: 3D Dress Catalogue Dock (Top to Bottom) ═══ -->
+    <aside class="catalog-dock" id="garment-rail" aria-label="3D Dress Catalogue">
+      <!-- New Photo Adding Option (Top, larger, realistic glassmorphic) -->
+      <button class="catalog-add-btn" id="btn-open-upload" title="add photo or custom garment" aria-label="add photo">
+        <div class="add-btn-glass">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
       </button>
+
+      <!-- Glass Divider -->
+      <div class="catalog-divider"></div>
+
+      <!-- Scrollable 3D Dress Asset Cards (Top to Bottom) -->
+      <div class="catalog-scroll" id="presets-grid">
+        <!-- Dynamically populated 3D asset cards without full text names -->
+      </div>
+    </aside>
+
+    <!-- Currently Wearing Pill (Bottom Center) -->
+    <div class="active-outfit-pill" id="active-outfit-pill">
+      <img src="/garments/red-silk-dress.jpg" class="active-outfit-thumb" id="active-outfit-thumb" alt="">
+      <span class="active-outfit-title" id="active-outfit-title">crimson silk gown</span>
     </div>
 
     <!-- ═══ BOTTOM-RIGHT: Session timer (tiny) ═══ -->

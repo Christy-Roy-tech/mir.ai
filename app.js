@@ -587,15 +587,16 @@ function renderPresets(presets) {
   if (!elements.presetsGrid) return;
   elements.presetsGrid.innerHTML = "";
   presets.forEach((preset, index) => {
-    const card = document.createElement("div");
+    const card = document.createElement("button");
+    card.type = "button";
     card.className = `preset-card ${index === 0 ? 'active' : ''}`;
     card.dataset.id = preset.id;
+    card.dataset.name = preset.name.toLowerCase();
+    card.setAttribute("title", preset.name.toLowerCase());
+    card.setAttribute("aria-label", preset.name.toLowerCase());
     card.innerHTML = `
-      <div class="preset-thumb-wrap">
-        <img src="${preset.imageUrl}" class="preset-thumb" alt="${escapeHtml(preset.name)}" loading="lazy">
-      </div>
-      <div class="preset-info">
-        <div class="preset-name">${escapeHtml(preset.name).toLowerCase()}</div>
+      <div class="preset-asset-frame">
+        <img src="${preset.imageUrl}" class="preset-asset-img" alt="${escapeHtml(preset.name)}" loading="lazy">
       </div>
     `;
 
@@ -613,63 +614,47 @@ function renderPresets(presets) {
 
 // Populate Presets Grid
 async function loadPresets() {
-  // Built-in presets ensure UI works even if network fetch delays
+  // Built-in presets with 3D dress assets
   state.presets = [
     {
-      id: "bomber",
-      name: "Black Bomber Jacket",
-      prompt: "Wearing a black bomber jacket with a blue logo on the chest",
-      imageUrl: "/garments/bomber-jacket.png",
-      filename: "bomber-jacket.png",
+      id: "red-silk",
+      name: "Crimson Silk Gown",
+      prompt: "Wearing an elegant luxury crimson red silk evening gown with dramatic drapes",
+      filename: "red-silk-dress.jpg",
+      imageUrl: "/garments/red-silk-dress.jpg",
+      category: "Dresses"
+    },
+    {
+      id: "emerald",
+      name: "Emerald Velvet Dress",
+      prompt: "Wearing a luxury emerald green velvet cocktail dress with delicate gold buckle",
+      filename: "emerald-dress.jpg",
+      imageUrl: "/garments/emerald-dress.jpg",
+      category: "Dresses"
+    },
+    {
+      id: "black-slip",
+      name: "Black Satin Slip Dress",
+      prompt: "Wearing an elegant luxury black satin slip dress with spaghetti straps",
+      filename: "black-slip-dress.jpg",
+      imageUrl: "/garments/black-slip-dress.jpg",
+      category: "Dresses"
+    },
+    {
+      id: "floral-dress",
+      name: "White Floral Sundress",
+      prompt: "Wearing a white floral printed summer sundress with delicate ruffles and flowers",
+      filename: "floral-sundress.jpg",
+      imageUrl: "/garments/floral-sundress.jpg",
+      category: "Dresses"
+    },
+    {
+      id: "leather-biker",
+      name: "Black Leather Biker",
+      prompt: "Wearing a tailored luxury black moto leather jacket with metallic zippers",
+      filename: "leather-biker.jpg",
+      imageUrl: "/garments/leather-biker.jpg",
       category: "Jackets"
-    },
-    {
-      id: "leather",
-      name: "Red Leather Jacket",
-      prompt: "Wearing a red leather jacket",
-      imageUrl: "/garments/red-leather-jacket.png",
-      filename: "red-leather-jacket.png",
-      category: "Leather"
-    },
-    {
-      id: "denim",
-      name: "Vintage Denim Jacket",
-      prompt: "Wearing a classic washed blue denim trucker jacket with brass buttons",
-      imageUrl: "/garments/denim-jacket.png",
-      filename: "denim-jacket.png",
-      category: "Denim"
-    },
-    {
-      id: "trench",
-      name: "Classic Trench Coat",
-      prompt: "Wearing an elegant beige double-breasted trench coat with waist belt",
-      imageUrl: "/garments/beige-trench.png",
-      filename: "beige-trench.png",
-      category: "Coats"
-    },
-    {
-      id: "cyberpunk",
-      name: "Cyberpunk Neon Hoodie",
-      prompt: "Wearing a futuristic cyberpunk black techwear hoodie with glowing cyan neon lines",
-      imageUrl: "/garments/cyberpunk-hoodie.png",
-      filename: "cyberpunk-hoodie.png",
-      category: "Techwear"
-    },
-    {
-      id: "blazer",
-      name: "Navy Tailored Blazer",
-      prompt: "Wearing a tailored navy blue blazer with a white dress shirt and red silk tie",
-      imageUrl: "/garments/navy-blazer.png",
-      filename: "navy-blazer.png",
-      category: "Suits"
-    },
-    {
-      id: "floral",
-      name: "Tropical Floral Shirt",
-      prompt: "Wearing a casual tropical floral vacation button-down shirt with vibrant palm prints",
-      imageUrl: "/garments/floral-shirt.png",
-      filename: "floral-shirt.png",
-      category: "Shirts"
     }
   ];
 
